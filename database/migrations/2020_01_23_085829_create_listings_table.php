@@ -20,6 +20,8 @@ class CreateListingsTable extends Migration
             $table->string('email');
             $table->string('url')->nullable();
             $table->text('address');
+            $table->text('phones');
+            $table->boolean('is_deactived')->default(false);
             $table->timestamps();
         });
     }

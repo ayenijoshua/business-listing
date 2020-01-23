@@ -79,12 +79,13 @@ class Repository implements RepositoryInterface {
      * $relationships - array of relations
      */
     public function detachRelations(Model $model, array $relationships){
+        //dd($relationships);
         foreach($relationships as $relations){
             //check if model has relations
             if($model_relations = $model->$relations){
                 foreach($model_relations as $relation){
                     //detach the model from the relations
-                    $model->relations->detach($relation);
+                    $model->$relations()->detach($relation);
                 }
             }
         }

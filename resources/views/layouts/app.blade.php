@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <style>
+        .invalid-feedback{
+            display: block !important;
+            margin: 0 !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -72,9 +80,55 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @auth
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        <strong>{{ session('success') }}</strong>
+                    </div><br>
+                    @endif
+                </div>
+                <div class="col-md-12 mb-3">
+                    @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        <strong>{{ session('error') }}</strong>
+                    </div><br>
+                    @endif
+                </div>
+                @error('error')
+                    <div class=" col-md-12 mb-3 alert alert-danger text-center">{{$message}}</div>
+                @enderror
+            </div>
+        @endauth
+
+            <main class="py-4">
+                <div class="container ">
+                    <div class="row justify-content-center">
+                        @auth
+                            <div class="col-md-3">
+                                <div class="list-group">
+                                    <a href="/home" class="list-group-item list-group-item-action @yield('home-active')">
+                                        dashboard
+                                    </a>
+                                    <a href="{{route('create-category')}}" class="list-group-item list-group-item-action @yield('create-category-active')">@if(Route::currentRouteName()=='edit-category') Edit Category @else Create Category @endif</a>
+                                    <a href="{{route('categories')}}" class="list-group-item list-group-item-action @yield('categories-active')">Categories</a>
+                                    <a href="{{route('create-listing')}}" class="list-group-item list-group-item-action @yield('create-listing-active')">@if(Route::currentRouteName()=='edit-listing')Edit Listing @else Create Listing @endif</a>
+                                    <a href="{{route('listings')}}" class="list-group-item list-group-item-action @yield('listings-active')">Listings</a>
+                                    <a href="{{route('listings')}}" class="list-group-item list-group-item-action @yield('logout-active')">Log out</a>
+                                </div>
+                            </div>
+                        @endauth
+                        <div class="col-md-9">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+                
+            </main>
+        
     </div>
+    
+    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> --}}
 </body>
 </html>

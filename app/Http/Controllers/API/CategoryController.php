@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Listing;
+use App\Category;
 use Illuminate\Http\Request;
-use App\Traits\HelpsResponse;
 use App\Http\Controllers\Controller;
 
-class ListingController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,20 +36,16 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            
-        }catch(\Exection $e){
-            return $this->exceptionResponse($e);
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Listing  $listing
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Listing $listing)
+    public function show(Category $category)
     {
         //
     }
@@ -58,10 +53,10 @@ class ListingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Listing  $listing
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Listing $listing)
+    public function edit(Category $category)
     {
         //
     }
@@ -70,10 +65,10 @@ class ListingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Listing  $listing
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Listing $listing)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -81,10 +76,10 @@ class ListingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Listing  $listing
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Listing $listing)
+    public function destroy(Category $category)
     {
         //
     }
