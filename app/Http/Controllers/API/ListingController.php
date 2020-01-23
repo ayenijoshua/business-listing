@@ -5,17 +5,10 @@ namespace App\Http\Controllers;
 use App\Listing;
 use Illuminate\Http\Request;
 use App\Traits\HelpsResponse;
-use App\Repositories\ListingRepository;
+use App\Http\Controllers\Controller;
 
 class ListingController extends Controller
 {
-    use HelpsResponse;
-
-    private $listing;
-
-    function __construct(ListingRepository $listing){
-        $this->listing = $listing;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +38,7 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         try{
-
+            
         }catch(\Exection $e){
             return $this->exceptionResponse($e);
         }

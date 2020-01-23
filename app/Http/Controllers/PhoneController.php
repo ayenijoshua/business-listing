@@ -2,20 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Listing;
+use App\Phone;
 use Illuminate\Http\Request;
-use App\Traits\HelpsResponse;
-use App\Repositories\ListingRepository;
 
-class ListingController extends Controller
+class PhoneController extends Controller
 {
-    use HelpsResponse;
-
-    private $listing;
-
-    function __construct(ListingRepository $listing){
-        $this->listing = $listing;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -44,20 +35,16 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-
-        }catch(\Exection $e){
-            return $this->exceptionResponse($e);
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Listing  $listing
+     * @param  \App\Phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function show(Listing $listing)
+    public function show(Phone $phone)
     {
         //
     }
@@ -65,10 +52,10 @@ class ListingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Listing  $listing
+     * @param  \App\Phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function edit(Listing $listing)
+    public function edit(Phone $phone)
     {
         //
     }
@@ -77,10 +64,10 @@ class ListingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Listing  $listing
+     * @param  \App\Phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Listing $listing)
+    public function update(Request $request, Phone $phone)
     {
         //
     }
@@ -88,10 +75,10 @@ class ListingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Listing  $listing
+     * @param  \App\Phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Listing $listing)
+    public function destroy(Phone $phone)
     {
         //
     }
