@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Listing;
 use Illuminate\Http\Request;
+use App\Traits\HelpsResponse;
 
 class ListingController extends Controller
 {
@@ -35,7 +36,11 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            
+        }catch(\Exection $e){
+            return $this->exceptionResponse($e);
+        }
     }
 
     /**
