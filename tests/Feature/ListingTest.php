@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Listing;
 
 class ListingTest extends TestCase
 {
@@ -20,7 +21,20 @@ class ListingTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function getListings(){
-        
+    /**
+     * test to get all products
+     */
+    public function testGetAllListings(){
+        \factory(Listing::class,5)->state('sku')->create();
+        $response = $this->json('GET','/api/listings');
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            [
+                'id',
+                'name',
+                'description',
+                
+            ]
+        ]);
     }
 }

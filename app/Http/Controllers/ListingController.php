@@ -31,7 +31,7 @@ class ListingController extends Controller
     }
 
     public function all(){
-        return view('welcome',['listings'=>$this->listing->paginate(10)]);
+        return view('welcome',['listings'=>$this->listing->paginate(5)]);
     }
 
     /**

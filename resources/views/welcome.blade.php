@@ -165,8 +165,9 @@
             </div>
 
             <div class="card-body">
-                <div class="row">
-                    @forelse($listings as $listing)
+                @forelse($listings as $listing)
+                    <div class="row">
+                    
                         <div class="col-md-8 offset-md-2">
                             <div class="card">
                                 <div class="card-body">
@@ -176,10 +177,13 @@
                                 </div>
                             </div>
                         </div>
-                    @empty
+                    </div>
+                        <hr>
+                @empty
                         <div class="alert alert-danger">There are no business listings</div>
-                    @endforelse
-                </div>
+                @endforelse
+                {{$listings->links()}}
+                
             </div>
 
 
