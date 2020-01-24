@@ -114,7 +114,7 @@
 
                     <div class="form-group">
                             <label for="exampleFormControlTextarea1">Business Logos/Images</label>
-                        <input type="file" multiple name="images" class="form-control">
+                        <input type="file" multiple name="images" disabled class="form-control">
                         @error('images')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

@@ -57,7 +57,7 @@ class ListingController extends Controller
                 'categories .*'=>'exists:categories,id',
                 'url'=>'nullable',
                 'address'=>'bail|required',
-                'phones'=>'nullable'
+                'phones'=>'required'
             ]);
             if($v->fails()){
                 return $this->validationErrorResponse($v);
@@ -111,7 +111,7 @@ class ListingController extends Controller
                 'categories .*'=>'exists:categories,id',
                 'url'=>'nullable',
                 'address'=>'bail|required',
-                'phones'=>'nullable'
+                'phones'=>'required'
             ]);
             if($v->fails()){
                 return $this->validationErrorResponse($v);
