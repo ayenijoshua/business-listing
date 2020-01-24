@@ -13,7 +13,7 @@ class LookListingTable extends Migration
      */
     public function up()
     {
-        Schema::table('listing', function(Blueprint $table){
+        Schema::table('listings', function(Blueprint $table){
             $table->text('phones')->nullable()->change();
         });
     }
