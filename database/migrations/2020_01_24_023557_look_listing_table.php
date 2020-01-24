@@ -14,7 +14,7 @@ class LookListingTable extends Migration
     public function up()
     {
         Shema::table('listing', function(Blueprint $table){
-            $table->text('phones')->nullable();
+            $table->text('phones')->nullable()->change();
         });
     }
 
