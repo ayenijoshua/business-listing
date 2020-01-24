@@ -12,7 +12,7 @@
 
     @if(count($categories)<1)
         <div class="row">
-            <div class="col-md-12 alert alert-danger">Please make there at least one category before creating a listing</div>
+            <div class="col-md-12 alert alert-danger">Please make sure there is at least one category before creating a listing</div>
         </div>
     @endif
     <div class="card">
