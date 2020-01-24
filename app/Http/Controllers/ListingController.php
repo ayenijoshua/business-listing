@@ -218,6 +218,34 @@ class ListingController extends Controller
     }
 
     /**
+     * set listing image to default
+     */
+    public function setDefaultImage(ListingImage $image){
+        try{
+            if($image->update(['is_default'=>true])){
+                return $this->successMessage('Listing image set to default successfully');
+            }
+            return $this->errorResponse(['error'=>'Unable to set default, please try again']);
+        }catch(\Exception $e){
+            return $this->exceptionResponse($e);
+        }
+    }
+
+    /**
+     * unset default listing image
+     */
+    public function unsetDefaultImage(ListingImage $image){
+        try{
+            if($image->update(['is_default'=>false])){
+                return $this->successMessage('Listing image unset to default successfully');
+            }
+            return $this->errorResponse(['error'=>'Unable to unset default, please try again']);
+        }catch(\Exception $e){
+            return $this->exceptionResponse($e);
+        }
+    }
+
+    /**
      * add image to listing
      */
     public function addImages(Request $request, Listing $listing){
