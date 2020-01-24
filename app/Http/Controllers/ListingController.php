@@ -70,7 +70,7 @@ class ListingController extends Controller
                 return $this->successMessage('Busines listing created successfully');
             }
             return $this->errorResponse(['error'=>'Unable to create business, please try again']);
-        }catch(\Exection $e){
+        }catch(\Exception $e){
             return $this->exceptionResponse($e);
         }
     }

@@ -20,7 +20,7 @@ class CreateListingsTable extends Migration
             $table->string('email');
             $table->string('url')->nullable();
             $table->text('address');
-            $table->text('phones');
+            $table->text('phones')->nullable();
             $table->boolean('is_deactived')->default(false);
             $table->integer('view_count')->nullable();
             $table->timestamps();
