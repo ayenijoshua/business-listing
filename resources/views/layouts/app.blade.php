@@ -51,29 +51,24 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                        </li>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            
                         @endguest
                     </ul>
                 </div>
@@ -108,14 +103,13 @@
                         @auth
                             <div class="col-md-3">
                                 <div class="list-group">
-                                    <a href="/home" class="list-group-item list-group-item-action @yield('home-active')">
-                                        dashboard
+                                    <a href="{{route('home')}}" class="list-group-item list-group-item-action @yield('home-active')">
+                                        Dashboard
                                     </a>
                                     <a href="{{route('create-category')}}" class="list-group-item list-group-item-action @yield('create-category-active')">@if(Route::currentRouteName()=='edit-category') Edit Category @else Create Category @endif</a>
                                     <a href="{{route('categories')}}" class="list-group-item list-group-item-action @yield('categories-active')">Categories</a>
                                     <a href="{{route('create-listing')}}" class="list-group-item list-group-item-action @yield('create-listing-active')">@if(Route::currentRouteName()=='edit-listing')Edit Listing @else Create Listing @endif</a>
                                     <a href="{{route('listings')}}" class="list-group-item list-group-item-action @yield('listings-active')">Listings</a>
-                                    <a href="{{route('listings')}}" class="list-group-item list-group-item-action @yield('logout-active')">Log out</a>
                                 </div>
                             </div>
                         @endauth

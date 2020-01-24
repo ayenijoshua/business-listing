@@ -22,6 +22,7 @@ class CreateListingsTable extends Migration
             $table->text('address');
             $table->text('phones');
             $table->boolean('is_deactived')->default(false);
+            $table->integer('view_count')->nullable();
             $table->timestamps();
         });
     }

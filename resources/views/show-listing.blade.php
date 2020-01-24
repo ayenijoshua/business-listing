@@ -115,72 +115,22 @@
 
         <div class="container">
             <div class="card">
-                <div class="card-header">Business Listings</div>
-            </div>
+                <div class="card-header">{{$listing->name}}</div>
 
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    @if(session('success'))
-                    <div class="alert alert-success" role="alert">
-                        <strong>{{ session('success') }}</strong>
-                    </div><br>
-                    @endif
-                </div>
-                <div class="col-md-12 mb-3">
-                    @if(session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        <strong>{{ session('error') }}</strong>
-                    </div><br>
-                    @endif
-                </div>
-                @error('error')
-                    <div class=" col-md-12 mb-3 alert alert-danger text-center">{{$message}}</div>
-                @enderror
-            </div>
-
-            <hr>
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <form method="POST" action="{{route('search-listings')}}">
-                        @csrf
-                        <div class="form-row align-items-center">
-                            <div class="col-auto">
-                            <label class="sr-only" for="inlineFormInput">Name</label>
-                            <input type="text"name="name" class="form-control mb-2" id="inlineFormInput" placeholder="Name">
-                            </div>
-                            <div class="col-auto">
-                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                            <div class="input-group mb-2">
-                                
-                                <input name="description" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Description">
-                            </div>
-                            </div>
-                            
-                            <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-2">Search</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="card-body">
+                    <div class="card-body">
+                        <h5 class="card-title">Email - {{$listing->email}}</h5>
+                        <h5 class="card-title">Phones - @if($listing->phones) {{$listing->phones}} @else Not-available @endif</h5>
+                        <h5 class="card-title">Website - @if($listing->url) {{$listing->url}} @else Not-available @endif</h5>
+                        <p class="card-text">Description - {{$listing->description}}</p>
+                        <p class="card-text">Address - {{$listing->address}}</p>
+                        
+                        <a href="{{route('welcome')}}" class="btn btn-primary">Back</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="card-body">
-                <div class="row">
-                    @forelse($listings as $listing)
-                        <div class="col-md-8 offset-md-2">
-                            <div class="card">
-                                <div class="card-body">
-                                <h5 class="card-title">{{$listing->name}}</h5>
-                                <p class="card-text">{{$listing->description}}</p>
-                                <a href="{{route('show-listing',$listing->id)}}" class="btn btn-primary">View</a>
-                                </div>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="alert alert-danger">There are no business listings</div>
-                    @endforelse
-                </div>
-            </div>
+            
 
 
         </div>

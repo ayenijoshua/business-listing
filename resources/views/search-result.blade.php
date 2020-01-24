@@ -115,54 +115,10 @@
 
         <div class="container">
             <div class="card">
-                <div class="card-header">Business Listings</div>
+                <div class="card-header">Search result</div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    @if(session('success'))
-                    <div class="alert alert-success" role="alert">
-                        <strong>{{ session('success') }}</strong>
-                    </div><br>
-                    @endif
-                </div>
-                <div class="col-md-12 mb-3">
-                    @if(session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        <strong>{{ session('error') }}</strong>
-                    </div><br>
-                    @endif
-                </div>
-                @error('error')
-                    <div class=" col-md-12 mb-3 alert alert-danger text-center">{{$message}}</div>
-                @enderror
-            </div>
-
             <hr>
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <form method="POST" action="{{route('search-listings')}}">
-                        @csrf
-                        <div class="form-row align-items-center">
-                            <div class="col-auto">
-                            <label class="sr-only" for="inlineFormInput">Name</label>
-                            <input type="text"name="name" class="form-control mb-2" id="inlineFormInput" placeholder="Name">
-                            </div>
-                            <div class="col-auto">
-                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                            <div class="input-group mb-2">
-                                
-                                <input name="description" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Description">
-                            </div>
-                            </div>
-                            
-                            <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-2">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            
 
             <div class="card-body">
                 <div class="row">

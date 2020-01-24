@@ -28,7 +28,7 @@
                                 <div class="card-header">Listings</div>
                                 <div class="card-body">
                                     <h5 class="card-title">Total Listings</h5>
-                                    <h1 class="card-text">10</h1>
+                                    <h1 class="card-text">{{$listings_count}}</h1>
                                 </div>
                             </div>
                         </div>
@@ -37,13 +37,14 @@
                                 <div class="card-header">Categories</div>
                                 <div class="card-body">
                                     <h5 class="card-title">Total Categories</h5>
-                                    <h1 class="card-text">10</h1>
+                                    <h1 class="card-text">{{$categories_count}}</h1>
                                 </div>
                             </div>
                         </div>
                         
                     </div>
                 </div>
+            </div>
             {{-- </div>
         </div>
     </div>

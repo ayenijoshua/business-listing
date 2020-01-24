@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Listing;
 
 class ListingRepository extends Repository{
+
+    private $returnVal;
+
     function __construct(Listing $listing){
         parent::__construct($listing);
     }
@@ -31,31 +34,52 @@ class ListingRepository extends Repository{
      * upload listing images/logos
      */
     public function processImagesUpload($listing,$request){
-        //DB::transaction(function() use ($request){
-            foreach ($request->files->get('images') as $key => $value) {
-                //$image_name = time()."_".$request->file('images')[$key]->getClientOriginalName();
-                $image_path = $request->file('images')[$key]->store('listing-images','public');
-                if(!$image_path){
-                    throw new \Exception("Unable to upload image");
-                }
-                $image = new \App\Models\ListingImage(['path'=>$image_path]);
-                $listing->images()->save($image);
+        foreach ($request->files->get('images') as $key => $value) {
+            $image_path = $request->file('images')[$key]->store('listing-images','public');
+            if(!$image_path){
+                throw new \Exception("Unable to upload image");
             }
-            App::make('files')->link(\storage_path('app/public'), public_path('storage'));
+            $image = new \App\ListingImage(['path'=>$image_path]);
+            $listing->images()->save($image);
+        }
+        App::make('files')->link(\storage_path('app/public'), public_path('storage'));
     }
 
+    /**
+     * process image delete
+     * @request - http request object
+     * @image - image to be deleted
+     */
+    public function processImageDelete($image){
+        DB::transaction(function() use ($image){
+            $old_image_path = $image->path;
+            if(!$image->delete()){
+                throw new \Exception("Unable to delete image record from database");
+            }
+            Storage::disk('public')->delete($old_image_path);
+            App::make('files')->link(\storage_path('app/public'), public_path('storage'));
+        });
+    }
+
+    /**
+     * updatelisting
+     */
     public function updateListing($listing,$request){
         DB::transaction(function() use ($request,$listing){
             $update = $listing->update($request->except('categories'));
             $listing->categories()->sync($request->categories);
             /**
-             * un-comment below to add upload image functionalty
+             * comment below to add upload image functionalty
              */
-            //$this->processImagesUpload($listing,$request);
+            if($request->file('images')){
+                $this->processImagesUpload($listing,$request);
+            }
             $this->returnVal = $update;
         });
         return $this->returnVal;
     }
+
+
 }
 
 

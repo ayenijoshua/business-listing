@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\HelpsResponse;
 use App\Repositories\ListingRepository;
 use App\Repositories\CategoryRepository;
+use App\ListingImage;
 
 class ListingController extends Controller
 {
@@ -15,6 +16,7 @@ class ListingController extends Controller
     private $listing,$category;
 
     function __construct(ListingRepository $listing, CategoryRepository $category){
+        $this->middleware('auth')->except('all','show','search');
         $this->listing = $listing;
         $this->category = $category;
     }
@@ -25,7 +27,11 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view('listings',['listings'=>$this->listing->all()]);
+        return view('listings',['listings'=>$this->listing->paginate(5)]);
+    }
+
+    public function all(){
+        return view('welcome',['listings'=>$this->listing->paginate(10)]);
     }
 
     /**
@@ -75,7 +81,16 @@ class ListingController extends Controller
      * @param  \App\Listing  $listing
      * @return \Illuminate\Http\Response
      */
-    public function show(Listing $listing)
+    public function show(Listing $listing){
+        $current_count = $listing->view_count;
+        $listing->update(['view_count'=>$current_count+1]);
+        return view('show-listing',['listing'=>$listing]);
+    }
+
+    /**
+     * show delete confirmation view
+     */
+    public function showDelete(Listing $listing)
     {
         return view('delete-listing',['listing'=>$listing]);
     }
@@ -185,6 +200,55 @@ class ListingController extends Controller
                 return $this->successMessage('Listing activated successfully',route('listings'));
             }
            return $this->errorResponse(['error'=>'Unable to activate listing, pplease try again']);
+        }catch(\Exception $e){
+            return $this->exceptionResponse($e);
+        }
+    }
+
+    /**
+     * delete listing image
+     */
+    public function deleteImage(ListingImage $image){
+        try{
+            $this->listing->processImageDelete($image);
+            return $this->successMessage('Image deleted succesfully');
+        }catch(\Exception $e){
+            return $this->exceptionResponse($e);
+        }
+    }
+
+    /**
+     * add image to listing
+     */
+    public function addImages(Request $request, Listing $listing){
+        try{
+            $v = validator($request->all(),[
+                'images'=>'bail|required|array',
+                'images .*'=> 'image|mimes:png,jpg,gif,jpeg,svg|max:2048'
+            ]);
+            if($v->fails()){
+                return $this->validationErrorResponse($v);
+            }
+            $this->listing->processImagesUpload($listing,$request);
+            return $this->successMessasge('Images uploaded succesfully');
+        }catch(\Exception $e){
+            return $this->exceptionResponse($e);
+        }
+    }
+
+    /**
+     * search listings
+     */
+    public function search(Request $request){
+        try{
+            if(!$request->name && !$request->description){
+                return $this->errorResponse(['error'=>'You have not entered any search parameter']);
+            }
+          $search =  Listing::where('name','LIKE','%'.$request->name.'%')->where('description','LIKE','%'.$request->description.'%')->paginate(10);
+            if(count($search)<1){
+                return $this->errorResponse(['error'=>'Sorry, we couldnot find any result for your search']);
+            }
+            return view('search-result',['listings'=>$search]);
         }catch(\Exception $e){
             return $this->exceptionResponse($e);
         }

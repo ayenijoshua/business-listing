@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ListingController@all')->name('welcome');
 
 Auth::routes();
 
@@ -29,7 +27,7 @@ Route::get('/edit-category/{category}','CategoryController@edit')->name('edit-ca
 //update category
 Route::post('/update-category/{category}','CategoryController@update')->name('update-category');
 //confirm delete category
-Route::get('/delete-category/{category}','CategoryController@show')->name('show-category');
+Route::get('/delete-category/{category}','CategoryController@showDelete')->name('show-delete-category');
 //delete category
 Route::post('/delete-category/{category}','CategoryController@destroy')->name('delete-category');
 
@@ -45,7 +43,7 @@ Route::get('/edit-listing/{listing}','ListingController@edit')->name('edit-listi
 //update listing
 Route::post('/update-listing/{listing}','ListingController@update')->name('update-listing');
 //confirm delete listing
-Route::get('delete-listing/{listing}', 'ListingController@show')->name('show-listing');
+Route::get('delete-listing/{listing}', 'ListingController@showDelete')->name('show-delete-listing');
 //delete listing
 Route::post('delete-listing/{listing}', 'ListingController@destroy')->name('delete-listing');
 //confirm deactivate listing
@@ -56,6 +54,10 @@ Route::post('deactivate-listing/{listing}', 'ListingController@deactivate')->nam
 Route::get('activate-listing/{listing}', 'ListingController@showActivate')->name('show-activate-listing');
 // activate a listing
 Route::post('activate-listing/{listing}', 'ListingController@activate')->name('activate-listing');
+//show listings
+Route::get('show-listing/{listing}','ListingController@show')->name('show-listing');
+
+Route::post('search-listings','ListingController@search')->name('search-listings');
 
 //Route::get()
 

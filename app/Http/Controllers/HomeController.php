@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home',['listings_count'=>\App\Listing::count(),'categories_count'=>\App\Category::count()]);
     }
+
+    
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateListing extends Migration
+class ModifyListing extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class UpdateListing extends Migration
     public function up()
     {
         Schema::table('listings', function (Blueprint $table) {
-            $table->boolean('is_deactived')->default(false);
+            $table->integer('view_count')->nullable();
         });
     }
 

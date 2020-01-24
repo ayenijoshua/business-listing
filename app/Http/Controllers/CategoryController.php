@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories',['categories'=>$this->category->all()]);
+        return view('categories',['categories'=>$this->category->paginate(5)]);
     }
 
     /**
@@ -66,7 +66,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function showDelete(Category $category)
     {
         return view('delete-category',['category'=>$category]);
     }

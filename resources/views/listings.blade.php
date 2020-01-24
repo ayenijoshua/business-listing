@@ -20,7 +20,7 @@
                         </div>
                     @endif
 
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
                             <th scope="col">S/N</th>
@@ -28,14 +28,16 @@
                             <th scope="col">Email</th>
                             <th scope="col">Status</th>
                             <th scope="col">website</th>
+                            <th scope="col">Address</th>
                             <th scope="col">categories</th>
                             <th scope="col">phones</th>
                             <th scope="col">Description</th>
+                            <th scope="col">Views</th>
                             <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php $i=1; @endphp
+                                @php $i=  5 * ($listings->currentPage() - 1) + 1 @endphp
                             @forelse($listings as $listing)
                                 <tr>
                                     <th scope="row">{{$i++}}</th>
@@ -49,13 +51,17 @@
                                         @endif
                                     </td>
                                     <td>{{$listing->url}}</td>
+                                    <td><textarea disabled>{{$listing->address}}</textarea></td>
                                     <td>
-                                        @foreach($listing->categories as $category)
-                                            <span class="badge badge-sm">{{$category->name}}</span>
-                                        @endforeach
+                                        <select class="">
+                                            @foreach($listing->categories as $category)
+                                                <option>{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
-                                    <td>{{$listing->phones}}</td>
+                                    <td><textarea disabled>{{$listing->phones}}</textarea></td>
                                     <td>{{$listing->description}}</td>
+                                    <td>{{$listing->view_count}}</td>
                                     <td>
                                         <select onChange="window.location.href=this.value">
                                             <option value="{{route('listings')}}">Actions</option>
@@ -65,13 +71,13 @@
                                             @else
                                                 <option value="{{route('show-deactivate-listing',$listing->id)}}">De-activate</option>
                                             @endif
-                                            <option value="{{route('show-listing',$listing->id)}}">Delete</option>
+                                            <option value="{{route('show-delete-listing',$listing->id)}}">Delete</option>
                                         </select>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="11">
                                         <div class="alert alert-danger">There no categries</div>
                                     </td>
                                 </tr>
@@ -79,6 +85,7 @@
                             @endforelse
                         </tbody>
                     </table>
+                    {{$listings->links()}}
                 </div>
             </div>
            

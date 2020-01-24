@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $i=1; @endphp
+                            @php $i=  5 * ($categories->currentPage() - 1) + 1 @endphp
                             @forelse($categories as $category)
                                 <tr>
                                     <th scope="row">{{$i++}}</th>
@@ -40,7 +40,7 @@
                                         <select onChange="window.location.href=this.value">
                                             <option value="{{route('categories')}}">Actions</option>
                                             <option value="{{route('edit-category',$category->id)}}">Edit</option>
-                                            <option value="{{route('show-category',$category->id)}}">Delete</option>
+                                            <option value="{{route('show-delete-category',$category->id)}}">Delete</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -49,6 +49,7 @@
                             @endforelse
                         </tbody>
                     </table>
+                    {{$categories->links()}}
                 </div>
             </div>
            
